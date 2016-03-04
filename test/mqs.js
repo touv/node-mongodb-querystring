@@ -29,6 +29,45 @@ describe('mqs', function() {
     };
     assert.deepEqual(mqs.parse(mqs.stringify(test)), test);
   });
+ it('test 0', function() {
+   var test = {
+     $query : {
+       $or: [
+         { "cuisine": "Italian" },
+         { "address.zipcode": "10075" }
+       ]
+     },
+     $orderby : {
+       age : -1,
+       posts: 1
+     }
+   };
+   assert.deepEqual(mqs.parse(mqs.stringify(test)), test);
+ });
+ it('test 0', function() {
+   var test = {
+     "$query" : {
+       "age" : {
+         "$gte" : new Date(1976, 11, 14)
+       },
+       "$or": [
+         { "cuisine": "Italian" },
+         { "address.zipcode": "10075" }
+       ]
+     },
+     "$limit" : 20,
+     "$orderby" : {
+       "age" : -1,
+       "posts": 1
+     }
+
+   };
+   assert.deepEqual(mqs.parse(mqs.stringify(test)), test);
+ });
+ it('test 0', function() {
+   var test = { };
+   assert.deepEqual(mqs.parse(mqs.stringify(test)), test);
+ });
 
 
 })
