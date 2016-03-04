@@ -1,4 +1,4 @@
-# N-Triples for NodeJS/Javascript 
+# MongoDB query through URL
 
 Pass MongoDB query through URL query string.
  
