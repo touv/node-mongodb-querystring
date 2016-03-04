@@ -1,10 +1,10 @@
 # MongoDB query through URL
 
 Pass MongoDB query through URL query string.
- 
+
 ## Contributors
 
-  * [Nicolas Thouvenin](https://github.com/touv) 
+  * [Nicolas Thouvenin](https://github.com/touv)
 
 # Installation
 
@@ -22,33 +22,62 @@ Use [mocha](https://github.com/visionmedia/mocha) to run the tests.
 
 # API Documentation
 
-## parse(input : String, [separator : String]) : Object
+## stringify(input : Object, [separator : String]) : String
+
+Converts `query` to a URL query string.
+
+```javascript
+	var mqs = require('mongodb-querystring');
+	var qry = {
+     "$query" : {
+       "age" : {
+         "$gte" : new Date(1976, 11, 14)
+       },
+       "$or": [
+         { "cuisine": "Italian" },
+         { "address.zipcode": "10075" }
+       ]
+     },
+     "$limit" : 20,
+     "$orderby" : {
+       "age" : -1,
+       "posts": 1
+     }
+   };
+   console.log(mqs.stringify(qry);
+
+```
+Output:
+
+	'$query[age][$gte]=219366000000^D&$query[$or][0][cuisine]=Italian&$query[$or][1][address.zipcode]=10075&$limit=20^N&$orderby[age]=-1^N&$orderby[posts]=1^N'
+
+## parse(input : String) : Object
+## parse(input : Object) : Object
 
 Parse `input` to convert to an query.
 ```javascript
 	var mqs = require('mongodb-querystring');
+	var qry = '$query[type][$in][0]=food&$query[type][$in][1]=snacks';
+	console.dir(mqs.parse(qry));
 
 ```
 Output:
-	
-	FIXME
-	
 
-## stringify(input : Object, [separator : String]) : String
+	{ '$query': { type: { '$in': [ 'food', 'snacks' ] } } }
 
-Converts `query` to a URL query string. 
+## create(input : String) : Object
+## create(input : Object) : Object
 
+Parse `input` to convert to an Object query.
 ```javascript
 	var mqs = require('mongodb-querystring');
-	
+	var qry = mqs.create(req.query);
+	console.log(qry.$query());
+	console.log(qry.$limit(10));
+
 ```
-Output:
-	
-	FIXME
-
-
 # Also
 
-* 
+* https://www.npmjs.com/package/query-to-mongo
 
 
