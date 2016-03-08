@@ -79,5 +79,6 @@ Parse `input` to convert to an Object query.
 # Also
 
 * https://www.npmjs.com/package/query-to-mongo
+* https://www.npmjs.com/package/mongo-querystring
 
 
